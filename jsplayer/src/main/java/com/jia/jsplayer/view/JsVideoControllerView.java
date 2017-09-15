@@ -540,7 +540,6 @@ public class JsVideoControllerView extends FrameLayout {
     private void pause() {
         mPlayer.pause();
         updatePausePlay();
-//        removeCallbacks(mFadeOut);
         show();
     }
 

@@ -94,7 +94,7 @@ public class JsPlayer extends VideoBehaviorView {
 
                 if (mMediaPlayer != null) {
                     mMediaPlayer.setSurfaceHolder(holder);
-                    mMediaPlayer.openVideo();
+//                    mMediaPlayer.openVideo();
                 }
             }
 
