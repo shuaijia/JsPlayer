@@ -14,7 +14,7 @@ public interface IVideoInfo extends Serializable {
     String getVideoTitle();
 
     /**
-     * 视频播放路径 url / file path
+     * 视频播放路径（本地或网络）
      */
     String getVideoPath();
 
