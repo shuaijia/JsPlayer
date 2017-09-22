@@ -30,12 +30,10 @@ public class JsVideoErrorView extends FrameLayout {
 
     private int curStatus;
 
-    public int getCurStatus() {
-        return curStatus;
-    }
-
     private TextView video_error_info;
     private Button video_error_retry;
+
+    private OnVideoControlListener onVideoControlListener;
 
     public JsVideoErrorView(Context context) {
         super(context);
@@ -109,9 +107,11 @@ public class JsVideoErrorView extends FrameLayout {
         curStatus = STATUS_NORMAL;
     }
 
-    private OnVideoControlListener onVideoControlListener;
-
     public void setOnVideoControlListener(OnVideoControlListener onVideoControlListener) {
         this.onVideoControlListener = onVideoControlListener;
+    }
+
+    public int getCurStatus() {
+        return curStatus;
     }
 }
