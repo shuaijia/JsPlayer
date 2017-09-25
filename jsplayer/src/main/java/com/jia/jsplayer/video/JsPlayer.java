@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 
 import com.jia.jsplayer.R;
 import com.jia.jsplayer.bean.IVideoInfo;
+import com.jia.jsplayer.danmu.DanmuAdapter;
+import com.jia.jsplayer.danmu.DanmuView;
 import com.jia.jsplayer.listener.OnPlayerCallback;
 import com.jia.jsplayer.listener.OnVideoControlListener;
 import com.jia.jsplayer.utils.NetworkUtils;
@@ -47,6 +49,8 @@ public class JsPlayer extends VideoBehaviorView {
     private JsVideoProgressOverlay progressView;
     private JsVideoSystemOverlay systemView;
     private JsVideoControllerView mediaController;
+    // 弹幕
+    private DanmuView danmu;
 
     private JsMediaPlayer mMediaPlayer;
 
@@ -82,6 +86,8 @@ public class JsPlayer extends VideoBehaviorView {
         progressView = (JsVideoProgressOverlay) findViewById(R.id.video_progress_overlay);
         systemView = (JsVideoSystemOverlay) findViewById(R.id.video_system_overlay);
         mediaController= (JsVideoControllerView) findViewById(R.id.video_controller);
+
+        danmu=findViewById(R.id.danmu);
 
         initPlayer();
 
@@ -330,6 +336,39 @@ public class JsPlayer extends VideoBehaviorView {
      */
     public boolean isLock() {
         return mediaController.isLock();
+    }
+
+    /**
+     * 设置弹幕
+     * @param adapter
+     */
+    public void setDanMuAdapter(DanmuAdapter adapter){
+        danmu.setVisibility(View.VISIBLE);
+        danmu.setAdapter(adapter);
+    }
+
+    /**
+     * 设置弹幕播放速度
+     * @param speed
+     */
+    public void setDanMuSpeed(int speed){
+        danmu.setSpeed(speed);
+    }
+
+    /**
+     * 设置弹幕位置
+     * @param gravity
+     */
+    public void setDanMuGravity(int gravity){
+        danmu.setGravity(gravity);
+    }
+
+    public DanmuView getDanmu() {
+        return danmu;
+    }
+
+    public void setDanmu(DanmuView danmu) {
+        this.danmu = danmu;
     }
 
     public JsVideoControllerView getMediaController() {

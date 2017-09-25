@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JsPlayer</string>
+
+    <item type="id" name="tag_inner_entity"></item>
 </resources>

@@ -1,10 +1,13 @@
 package com.jia.myapplication;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.jia.jsplayer.listener.OnVideoControlListener;
 import com.jia.jsplayer.utils.DisplayUtils;
@@ -15,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     // 播放器
     private JsPlayer player;
 
+    // 去弹幕页
+    private Button bt_danmu;
+
     private String path = "http://baobab.wdjcdn.com/1455782903700jy.mp4";
 
     @Override
@@ -23,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
+
+        bt_danmu= (Button) findViewById(R.id.bt_danmu);
+        bt_danmu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,DanmuActivity.class));
+            }
+        });
+
 
         player = (JsPlayer) findViewById(R.id.player);
 

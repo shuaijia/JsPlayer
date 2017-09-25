@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jia.jsplayer.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +125,7 @@ public class DanmuView extends ViewGroup {
      */
     public void addTypeView(DanmuModel model, View child, boolean isReused) {
         super.addView(child);
-
+        child.measure(0, 0);
         //把宽高拿到，宽高都是包含ItemDecorate的尺寸
         int width = child.getMeasuredWidth();
         int height = child.getMeasuredHeight();
@@ -134,13 +136,13 @@ public class DanmuView extends ViewGroup {
         child.layout(WIDTH, singltLineHeight * bestLine, WIDTH + width, singltLineHeight * bestLine + height);
 
         InnerEntity innerEntity = null;
-        innerEntity = (InnerEntity) child.getTag(500);
+        innerEntity = (InnerEntity) child.getTag(R.id.tag_inner_entity);
         if (!isReused || innerEntity == null) {
             innerEntity = new InnerEntity();
         }
         innerEntity.model = model;
         innerEntity.bestLine = bestLine;
-        child.setTag(500, innerEntity);
+        child.setTag(R.id.tag_inner_entity, innerEntity);
 
         spanList.set(bestLine, child);
     }
@@ -246,7 +248,7 @@ public class DanmuView extends ViewGroup {
                         view.offsetLeftAndRight(0 - speed);
                     else{
                         //添加到缓存中
-                        int type = ((InnerEntity)view.getTag(500)).model.getType();
+                        int type = ((InnerEntity)view.getTag(R.id.tag_inner_entity)).model.getType();
                         adapter.addViewToCache(type,view);
                         DanmuView.this.removeView(view);
 
