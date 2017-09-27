@@ -77,7 +77,6 @@ public class JsMediaPlayer {
                 if (onPlayerListener != null) {
                     onPlayerListener.onPrepared(mp);
                 }
-
             }
         });
         // 缓冲监听
