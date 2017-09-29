@@ -79,6 +79,7 @@ public class JsMediaPlayer {
                 }
             }
         });
+
         // 缓冲监听
         player.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
@@ -89,6 +90,7 @@ public class JsMediaPlayer {
                 currentBufferPercentage = percent;
             }
         });
+
         // 播放完成监听
         player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -99,6 +101,7 @@ public class JsMediaPlayer {
                 setCurrentState(STATE_PLAYBACK_COMPLETED);
             }
         });
+
         // 信息监听
         player.setOnInfoListener(new MediaPlayer.OnInfoListener() {
             @Override
@@ -115,8 +118,10 @@ public class JsMediaPlayer {
                 return false;
             }
         });
+
         // 出错监听
         player.setOnErrorListener(onErrorListener);
+
         // 视频大小切换监听
         player.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
             @Override

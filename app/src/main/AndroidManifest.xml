@@ -21,8 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DanmuActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".DanmuActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>
