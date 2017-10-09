@@ -1,10 +1,14 @@
 package com.jia.myapplication;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.jia.jsplayer.danmu.DanmuView;
@@ -28,6 +32,21 @@ public class DanmuActivity extends AppCompatActivity {
 
     Random random;
 
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                handler.sendEmptyMessageDelayed(1,250);
+//                MyDanmuModel danmuEntity = new MyDanmuModel();
+//                danmuEntity.setType(0);
+//                danmuEntity.setContent(DANMU[random.nextInt(8)]);
+//                danmuEntity.setTextColor(COLOR[random.nextInt(4)]);
+//                jsplayer_danmu.addDanmu(danmuEntity);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +63,7 @@ public class DanmuActivity extends AppCompatActivity {
             @Override
             public void onStartPlay() {
                 jsplayer_danmu.startPlay();
+//                handler.sendEmptyMessageDelayed(1,800);
             }
 
             @Override
@@ -65,8 +85,8 @@ public class DanmuActivity extends AppCompatActivity {
         jsplayer_danmu.setPath(new VideoInfo("极品艺术", path));
 
         jsplayer_danmu.setDanMuAdapter(new MyDanmuAdapter(this));
+        jsplayer_danmu.setDanMuGravity(3);
         jsplayer_danmu.setDanMuSpeed(DanmuView.NORMAL_SPEED);
-
 
         bt_add_danmu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +95,41 @@ public class DanmuActivity extends AppCompatActivity {
                 danmuEntity.setType(0);
                 danmuEntity.setContent(DANMU[random.nextInt(8)]);
                 danmuEntity.setTextColor(COLOR[random.nextInt(4)]);
-                jsplayer_danmu.getDanmu().addDanmu(danmuEntity);
+                jsplayer_danmu.addDanmu(danmuEntity);
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!DisplayUtils.isPortrait(this)) {
+            if (!jsplayer_danmu.isLock()) {
+                DisplayUtils.toggleScreenOrientation(this);
+            }
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        jsplayer_danmu.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        jsplayer_danmu.onDestroy();
     }
 }

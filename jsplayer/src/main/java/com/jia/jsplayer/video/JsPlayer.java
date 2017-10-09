@@ -18,11 +18,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.jia.jsplayer.R;
 import com.jia.jsplayer.bean.IVideoInfo;
 import com.jia.jsplayer.danmu.DanmuAdapter;
+import com.jia.jsplayer.danmu.DanmuModel;
 import com.jia.jsplayer.danmu.DanmuView;
 import com.jia.jsplayer.listener.OnPlayerCallback;
 import com.jia.jsplayer.listener.OnVideoControlListener;
@@ -363,12 +363,13 @@ public class JsPlayer extends VideoBehaviorView {
         danmu.setGravity(gravity);
     }
 
-    public DanmuView getDanmu() {
-        return danmu;
-    }
 
-    public void setDanmu(DanmuView danmu) {
-        this.danmu = danmu;
+    /**
+     * 给播放器添加弹幕
+     * @param model
+     */
+    public void addDanmu(DanmuModel model){
+        danmu.addDanmu(model);
     }
 
     public JsVideoControllerView getMediaController() {
