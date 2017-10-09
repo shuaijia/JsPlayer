@@ -1,10 +1,18 @@
 # JsPlayer
 
+### 先上效果
+![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/aa.png)
+![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/bb.png)
+![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/cc.png)
+![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/dd.png)
+![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/ee.png)
+
 ### 历史版本
 version | update 
 ----|------
 v1.0 | 基础功能
 v1.5 | 弹幕
+v1.5.1 | 优化弹幕
 
 ## 使用
 ### 1、添依赖
@@ -18,7 +26,11 @@ allprojects {
 ```
 ```
 dependencies {
+    compile 'com.github.shuaijia:JsPlayer:v1.0'
+//or
     compile 'com.github.shuaijia:JsPlayer:v1.5'
+//or
+    compile 'com.github.shuaijia:JsPlayer:v1.5.1'
 }
 ```
 ### 2、涉及到网络和文件读取，需要清单文件加权限
