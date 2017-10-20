@@ -98,7 +98,7 @@ public class DanmuActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                jsplayer_danmu.getDanmu().getBackground().setAlpha(seekBar.getProgress());
+                jsplayer_danmu.getDanmu().setAlpha(255-seekBar.getProgress());
             }
         });
 
