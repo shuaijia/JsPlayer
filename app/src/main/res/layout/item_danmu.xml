@@ -2,10 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_danmu_img"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@mipmap/q"/>
 
     <TextView
         android:id="@+id/tv_danmu"
         android:layout_width="wrap_content"
-        android:layout_height="20dp" />
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:text="dsfas"
+        android:textColor="#ffffff"/>
+
+    <ImageView
+        android:id="@+id/iv_danmu_good"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/good_off"/>
+
+    <TextView
+        android:id="@+id/tv_good_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textColor="#ffffff"/>
 </LinearLayout>

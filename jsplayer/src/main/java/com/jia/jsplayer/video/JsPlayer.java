@@ -363,6 +363,13 @@ public class JsPlayer extends VideoBehaviorView {
         danmu.setGravity(gravity);
     }
 
+    public DanmuView getDanmu() {
+        return danmu;
+    }
+
+    public void setDanmu(DanmuView danmu) {
+        this.danmu = danmu;
+    }
 
     /**
      * 给播放器添加弹幕

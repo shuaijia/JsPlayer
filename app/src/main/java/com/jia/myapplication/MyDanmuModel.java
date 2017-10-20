@@ -10,16 +10,8 @@ import com.jia.jsplayer.danmu.DanmuModel;
 public class MyDanmuModel extends DanmuModel {
 
     public String content;
-    public int textColor;
-    public String time;
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public int goodNum;
+    public boolean isGood;
 
     public String getContent() {
         return content;
@@ -29,11 +21,19 @@ public class MyDanmuModel extends DanmuModel {
         this.content = content;
     }
 
-    public int getTextColor() {
-        return textColor;
+    public int getGoodNum() {
+        return goodNum;
     }
 
-    public void setTextColor(int textColor) {
-        this.textColor = textColor;
+    public void setGoodNum(int goodNum) {
+        this.goodNum = goodNum;
+    }
+
+    public boolean isGood() {
+        return isGood;
+    }
+
+    public void setGood(boolean good) {
+        isGood = good;
     }
 }

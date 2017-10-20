@@ -92,9 +92,10 @@ public class DanmuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MyDanmuModel danmuEntity = new MyDanmuModel();
-                danmuEntity.setType(0);
                 danmuEntity.setContent(DANMU[random.nextInt(8)]);
-                danmuEntity.setTextColor(COLOR[random.nextInt(4)]);
+                danmuEntity.setType(random.nextInt(4));
+                danmuEntity.setGoodNum(random.nextInt(100)+1);
+                danmuEntity.setGood(false);
                 jsplayer_danmu.addDanmu(danmuEntity);
             }
         });
