@@ -75,6 +75,7 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
 
                 break;
         }
+
         vh.tv.setText(entry.getContent() + "");
         vh.tv_good_num.setText(entry.getGoodNum() + "");
         if (entry.isGood()) {

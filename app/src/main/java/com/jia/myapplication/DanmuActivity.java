@@ -99,6 +99,7 @@ public class DanmuActivity extends AppCompatActivity {
                 jsplayer_danmu.addDanmu(danmuEntity);
             }
         });
+
     }
 
     @Override
