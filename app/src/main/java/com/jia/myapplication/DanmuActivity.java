@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 import com.jia.jsplayer.danmu.DanmuView;
 import com.jia.jsplayer.listener.OnVideoControlListener;
@@ -23,6 +24,10 @@ public class DanmuActivity extends AppCompatActivity {
     private JsPlayer jsplayer_danmu;
 
     private Button bt_add_danmu;
+
+    private SeekBar seek_light;
+
+    private SeekBar seek_speed;
 
     private String path = "http://baobab.wdjcdn.com/1455782903700jy.mp4";
 
@@ -58,6 +63,44 @@ public class DanmuActivity extends AppCompatActivity {
 
         jsplayer_danmu = (JsPlayer) findViewById(R.id.jsplayer_danmu);
         bt_add_danmu = (Button) findViewById(R.id.bt_add_danmu);
+        seek_light= (SeekBar) findViewById(R.id.seek_light);
+        seek_light.setMax(255);
+        seek_speed= (SeekBar) findViewById(R.id.seek_speed);
+        seek_speed.setMax(8);
+
+        seek_speed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                jsplayer_danmu.setDanMuSpeed(seekBar.getProgress());
+            }
+        });
+
+        seek_light.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                jsplayer_danmu.getDanmu().getBackground().setAlpha(seekBar.getProgress());
+            }
+        });
 
         jsplayer_danmu.setOnVideoControlListener(new OnVideoControlListener() {
             @Override

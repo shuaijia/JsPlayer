@@ -10,12 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
 
+    <TextView
+        android:id="@+id/tv_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="亮度调节"
+        android:layout_below="@id/jsplayer_danmu"
+        android:layout_marginTop="20dp"/>
+
+    <SeekBar
+        android:id="@+id/seek_light"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_below="@id/tv_light"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/tv_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="速度调节"
+        android:layout_below="@id/seek_light"
+        android:layout_marginTop="20dp"/>
+
+    <SeekBar
+        android:id="@+id/seek_speed"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_below="@id/tv_speed"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"/>
 
     <Button
         android:id="@+id/bt_add_danmu"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:layout_below="@id/jsplayer_danmu"
+        android:layout_below="@id/seek_speed"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="增加弹幕"/>
