@@ -12,7 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
@@ -22,11 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".DanmuActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-
+        <activity
+            android:name=".DanMuViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_dan_mu_view"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

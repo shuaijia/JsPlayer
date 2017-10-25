@@ -99,16 +99,17 @@ public class DanmuView extends ViewGroup {
         }
 
         View dmView = null;
-        if (adapter.getCacheSize() >= 1) {
-            dmView = adapter.getView(model, adapter.removeViewFromCache(model.getType()));
-            if (dmView == null)
-                addTypeView(model, dmView, false);
-            else
-                addTypeView(model, dmView, true);
-        } else {
+//        if (adapter.getCacheSize() >= 1) {
+//            dmView = adapter.getView(model, adapter.removeViewFromCache(model.getType()));
+//            if (dmView == null)
+//                addTypeView(model, dmView, false);
+//            else
+////                addTypeView(model, dmView, true);
+//                addTypeView(model, dmView, false);
+//        } else {
             dmView = adapter.getView(model, null);
             addTypeView(model, dmView, false);
-        }
+//        }
 
         //添加监听
         dmView.setOnClickListener(new OnClickListener() {
@@ -215,10 +216,10 @@ public class DanmuView extends ViewGroup {
                 }
                 else{
                     count = 0;
-                    if(DanmuView.this.getChildCount() < adapter.getCacheSize() / 2){
-                        adapter.shrinkCacheSize();
-                        System.gc();
-                    }
+//                    if(DanmuView.this.getChildCount() < adapter.getCacheSize() / 2){
+//                        adapter.shrinkCacheSize();
+//                        System.gc();
+//                    }
                 }
                 if(DanmuView.this.getChildCount() >= 0){
                     msg = new Message();
@@ -249,7 +250,7 @@ public class DanmuView extends ViewGroup {
                     else{
                         //添加到缓存中
                         int type = ((InnerEntity)view.getTag(R.id.tag_inner_entity)).model.getType();
-                        adapter.addViewToCache(type,view);
+//                        adapter.addViewToCache(type,view);
                         DanmuView.this.removeView(view);
 
                     }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">播放器</string>
+
+    <string name="title_activity_dan_mu_view">DanMuViewActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
