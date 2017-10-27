@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 当当前的状态是点击的,那么就显示dg_btn_confirm_select这张图片 -->
+    <item android:drawable="@drawable/shape_publish_channel_selected" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/shape_publish_channel_selected" android:state_checked="true"></item>
+    <!--当前的状态没有任何时间,就显示dg_btn_confirm_select这张图片 -->
+    <item android:drawable="@drawable/shape_publish_channel_normal"></item>
+</selector>

@@ -26,9 +26,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".DanMuViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_dan_mu_view"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

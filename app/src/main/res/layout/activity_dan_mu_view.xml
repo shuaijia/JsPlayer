@@ -1,50 +1,153 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="@mipmap/bg"
     tools:context="com.jia.myapplication.DanMuViewActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
+    <com.jia.jsplayer.danmu.DanmuView
+        android:id="@+id/danmu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent" />
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_bottom_shadow"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
+        <EditText
+            android:id="@+id/et"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/bt_send"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="发送"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_danmu_setting"
+        android:layout_width="230dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="#cc222222"
+        android:clickable="true"
+        android:paddingLeft="15dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="速度"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <SeekBar
+            android:id="@+id/seek_speed"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="透明度"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <SeekBar
+            android:id="@+id/seek_light"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="字体大小"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <SeekBar
+            android:id="@+id/seek_size"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp" />
+
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
             android:orientation="horizontal"
-            tools:ignore="UselessParent">
+            android:layout_marginTop="15dp">
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
+            <RadioButton
+                android:id="@+id/tv_gravity110"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_publish_channel_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="上中"
+                android:textColor="#fff" />
 
-        </LinearLayout>
-    </FrameLayout>
+            <RadioButton
+                android:id="@+id/tv_gravity011"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_publish_channel_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="下中"
+                android:textColor="#fff" />
 
-</FrameLayout>
+            <RadioButton
+                android:id="@+id/tv_gravity111"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_publish_channel_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="上中下"
+                android:textColor="#fff" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_danmu_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/danmu_switch" />
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.jia.myapplication;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Handler;
@@ -25,6 +26,8 @@ public class DanmuActivity extends AppCompatActivity {
 
     private Button bt_add_danmu;
 
+    private Button bt__danmu_setting;
+
     private SeekBar seek_light;
 
     private SeekBar seek_speed;
@@ -37,12 +40,12 @@ public class DanmuActivity extends AppCompatActivity {
 
     Random random;
 
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(msg.what==1){
-                handler.sendEmptyMessageDelayed(1,250);
+            if (msg.what == 1) {
+                handler.sendEmptyMessageDelayed(1, 250);
 //                MyDanmuModel danmuEntity = new MyDanmuModel();
 //                danmuEntity.setType(0);
 //                danmuEntity.setContent(DANMU[random.nextInt(8)]);
@@ -63,9 +66,10 @@ public class DanmuActivity extends AppCompatActivity {
 
         jsplayer_danmu = (JsPlayer) findViewById(R.id.jsplayer_danmu);
         bt_add_danmu = (Button) findViewById(R.id.bt_add_danmu);
-        seek_light= (SeekBar) findViewById(R.id.seek_light);
+        bt__danmu_setting = (Button) findViewById(R.id.bt__danmu_setting);
+        seek_light = (SeekBar) findViewById(R.id.seek_light);
         seek_light.setMax(255);
-        seek_speed= (SeekBar) findViewById(R.id.seek_speed);
+        seek_speed = (SeekBar) findViewById(R.id.seek_speed);
         seek_speed.setMax(8);
 
         seek_speed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -98,7 +102,7 @@ public class DanmuActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                jsplayer_danmu.getDanmu().setAlpha(255-seekBar.getProgress());
+                jsplayer_danmu.getDanmu().setAlpha(255 - seekBar.getProgress());
             }
         });
 
@@ -137,12 +141,19 @@ public class DanmuActivity extends AppCompatActivity {
                 MyDanmuModel danmuEntity = new MyDanmuModel();
                 danmuEntity.setContent(DANMU[random.nextInt(8)]);
                 danmuEntity.setType(random.nextInt(4));
-                danmuEntity.setGoodNum(random.nextInt(100)+1);
+                danmuEntity.setGoodNum(random.nextInt(100) + 1);
                 danmuEntity.setGood(false);
                 jsplayer_danmu.addDanmu(danmuEntity);
             }
         });
 
+
+        bt__danmu_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DanmuActivity.this, DanMuViewActivity.class));
+            }
+        });
     }
 
     @Override

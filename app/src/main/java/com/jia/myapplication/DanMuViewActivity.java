@@ -1,85 +1,83 @@
 package com.jia.myapplication;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jia.jsplayer.danmu.DanmuView;
+
+import java.util.Random;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class DanMuViewActivity extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
+public class DanMuViewActivity extends Activity implements View.OnClickListener {
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+    // 弹幕
+    private DanmuView danmu;
+    // 弹幕开关
+    private ImageView iv_danmu_switch;
+    // 设置区域
+    private LinearLayout ll_danmu_setting;
+    // 透明度
+    private SeekBar seek_light;
+    // 速度
+    private SeekBar seek_speed;
+    // 大小
+    private SeekBar seek_size;
+    // 上中
+    private RadioButton tv_gravity110;
+    // 下中
+    private RadioButton tv_gravity011;
+    // 上中下
+    private RadioButton tv_gravity111;
+    // 输入框
+    private EditText et;
+    // 发送
+    private Button bt_send;
 
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
+    // 适配器
+    private MyDanmuAdapter adapter = new MyDanmuAdapter(this);
+
+    public String DANMU[] = {"腌疙瘩，炸麻叶", "一种鸡蛋蒸虾酱", "鲜味妙不可言", "撒了芝麻的吊炉烧饼，焦香四溢", "西红柿鸡蛋面", "那浓郁深沉的酱油味仍然让我无比想念", "即使是二姨炒的土豆片", "蒸馍馍"};
+
+    public int COLOR[] = {Color.BLUE, Color.WHITE, Color.YELLOW, Color.RED};
+
+    private Random random = new Random();
+
+    private MyDanmuModel danmuEntity = new MyDanmuModel();
+
+    private Handler handler = new Handler() {
         @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
-
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
-    private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 200) {
+                danmuEntity.setContent(DANMU[random.nextInt(8)]);
+                danmuEntity.setType(random.nextInt(4));
+                danmuEntity.setGoodNum(random.nextInt(100) + 1);
+                danmuEntity.setGood(false);
+                danmu.addDanmu(danmuEntity);
+                handler.sendEmptyMessageDelayed(200, 1000);
             }
-            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
-    private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
         }
     };
 
@@ -87,77 +85,155 @@ public class DanMuViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
+
         setContentView(R.layout.activity_dan_mu_view);
 
-        mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+        initView();
 
+        danmu.setAdapter(adapter);
+        danmu.setGravity(1);
+        danmu.setSpeed(DanmuView.NORMAL_SPEED);
 
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
+        handler.sendEmptyMessageDelayed(200, 1000);
+    }
+
+    private void initView() {
+        danmu = findViewById(R.id.danmu);
+        // 弹幕开关
+        iv_danmu_switch = findViewById(R.id.iv_danmu_switch);
+        iv_danmu_switch.setOnClickListener(this);
+        // 设置区域
+        ll_danmu_setting = findViewById(R.id.ll_danmu_setting);
+        // 透明度
+        seek_light = findViewById(R.id.seek_light);
+        seek_light.setMax(255);
+        seek_light.setProgress(0);
+        seek_light.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View view) {
-                toggle();
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                adapter.setAlpha((255 - i) / 255.0f);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
+        // 速度
+        seek_speed = findViewById(R.id.seek_speed);
+        seek_speed.setMax(80);
+        seek_speed.setProgress(danmu.getGravity() * 10);
+        seek_speed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (i / 10 == 0) {
+                    danmu.setSpeed(10);
+                } else {
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+                    danmu.setSpeed(i / 10);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        // 大小
+        seek_size = findViewById(R.id.seek_size);
+        seek_size.setMax(30);
+        seek_size.setProgress(15);
+        seek_size.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                adapter.setTextSize(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        // 上中
+        tv_gravity110 = findViewById(R.id.tv_gravity110);
+        tv_gravity110.setOnClickListener(this);
+        // 下中
+        tv_gravity011 = findViewById(R.id.tv_gravity011);
+        tv_gravity011.setOnClickListener(this);
+        // 上中下
+        tv_gravity111 = findViewById(R.id.tv_gravity111);
+        tv_gravity111.setOnClickListener(this);
+        // 输入框
+        et = findViewById(R.id.et);
+        // 发送
+        bt_send = findViewById(R.id.bt_send);
+        bt_send.setOnClickListener(this);
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_danmu_switch:
 
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
-    }
+                if (ll_danmu_setting.getVisibility() == View.VISIBLE) {
+                    ll_danmu_setting.setVisibility(View.GONE);
+                } else {
+                    ll_danmu_setting.setVisibility(View.VISIBLE);
+                }
 
-    private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
+                break;
+            case R.id.bt_send:
+
+                if (TextUtils.isEmpty(et.getText().toString())) {
+                    Toast.makeText(DanMuViewActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
+                } else {
+                    MyDanmuModel model = new MyDanmuModel();
+                    model.setContent(et.getText().toString());
+                    model.setType(random.nextInt(4));
+                    model.setGoodNum(0);
+                    model.setGood(false);
+                    danmu.addDanmu(model);
+
+                    et.setText("");
+                }
+
+
+                break;
+            case R.id.tv_gravity110:
+
+                danmu.setGravity(3);
+
+
+                break;
+            case R.id.tv_gravity011:
+
+                danmu.setGravity(6);
+
+                break;
+            case R.id.tv_gravity111:
+
+                danmu.setGravity(7);
+
+                break;
         }
     }
 
-    private void hide() {
-        // Hide UI first
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-        mControlsView.setVisibility(View.GONE);
-        mVisible = false;
-
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-    }
-
-    @SuppressLint("InlinedApi")
-    private void show() {
-        // Show the system bar
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        mVisible = true;
-
-        // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-    }
-
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
 }

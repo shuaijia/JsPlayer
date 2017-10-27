@@ -19,6 +19,10 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
 
     private Context context;
 
+    private int textSize=15;
+
+    private float alpha=1.0f;
+
     public MyDanmuAdapter(Context c) {
         super();
         context = c;
@@ -77,6 +81,8 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
         }
 
         vh.tv.setText(entry.getContent() + "");
+        vh.tv.setTextSize(textSize);
+
         vh.tv_good_num.setText(entry.getGoodNum() + "");
         if (entry.isGood()) {
             vh.iv_danmu_good.setImageResource(R.mipmap.good_on);
@@ -95,6 +101,11 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
             });
         }
 
+        vh.tv.setAlpha(alpha);
+        vh.tv_good_num.setAlpha(alpha);
+        vh.iv_danmu_good.setAlpha(alpha);
+        vh.iv_danmu_img.setAlpha(alpha);
+
         return convertView;
     }
 
@@ -103,5 +114,22 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
         TextView tv;
         ImageView iv_danmu_good;
         TextView tv_good_num;
+    }
+
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+
+    }
+
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 }

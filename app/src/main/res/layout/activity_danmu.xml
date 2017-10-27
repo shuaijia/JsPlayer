@@ -52,4 +52,13 @@
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="增加弹幕"/>
+
+    <Button
+        android:id="@+id/bt__danmu_setting"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/bt_add_danmu"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="弹幕设置"/>
 </RelativeLayout>
