@@ -5,6 +5,7 @@
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/bb.png)
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/cc.png)
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/dd.png)
+![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/ff.png)
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/ee.png)
 
 ### 历史版本
