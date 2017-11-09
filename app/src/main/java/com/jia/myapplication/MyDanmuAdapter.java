@@ -2,6 +2,7 @@ package com.jia.myapplication;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jia.jsplayer.danmu.DanmuAdapter;
+import com.wx.goodview.GoodView;
+
+import java.util.Random;
 
 /**
  * Description: 弹幕适配器
@@ -19,9 +23,9 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
 
     private Context context;
 
-    private int textSize=15;
+    private int textSize = 15;
 
-    private float alpha=1.0f;
+    private float alpha = 1.0f;
 
     public MyDanmuAdapter(Context c) {
         super();
@@ -47,7 +51,7 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
     public View getView(final MyDanmuModel entry, View convertView) {
         ViewHolder vh = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_danmu, (ViewGroup) convertView,true);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_danmu, (ViewGroup) convertView, true);
             vh = new ViewHolder();
             vh.tv = convertView.findViewById(R.id.tv_danmu);
             vh.iv_danmu_img = convertView.findViewById(R.id.iv_danmu_img);
@@ -88,23 +92,33 @@ public class MyDanmuAdapter extends DanmuAdapter<MyDanmuModel> {
             vh.iv_danmu_good.setImageResource(R.mipmap.good_on);
         } else {
             vh.iv_danmu_good.setImageResource(R.mipmap.good_off);
-
-            final ViewHolder finalVh = vh;
-            vh.tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finalVh.tv_good_num.setText((entry.getGoodNum()+1)+"");
-                    finalVh.tv_good_num.setTextColor(Color.RED);
-                    finalVh.tv.setTextColor(Color.RED);
-                    finalVh.iv_danmu_good.setImageResource(R.mipmap.good_on);
-                }
-            });
         }
 
         vh.tv.setAlpha(alpha);
         vh.tv_good_num.setAlpha(alpha);
         vh.iv_danmu_good.setAlpha(alpha);
         vh.iv_danmu_img.setAlpha(alpha);
+
+
+        final ViewHolder finalVh = vh;
+        vh.tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("TAG", "onClick: "+entry.isGood );
+                if (entry.isGood()) {
+                    return;
+                }
+                entry.setGood(true);
+                finalVh.tv_good_num.setText((entry.getGoodNum() + 1) + "");
+                finalVh.tv_good_num.setTextColor(Color.RED);
+                finalVh.tv.setTextColor(Color.RED);
+                finalVh.iv_danmu_good.setImageResource(R.mipmap.good_on);
+
+                GoodView goodView = new GoodView(context);
+                goodView.setTextInfo("+1", Color.parseColor("#f66467"), 12);
+                goodView.show(view);
+            }
+        });
 
         return convertView;
     }

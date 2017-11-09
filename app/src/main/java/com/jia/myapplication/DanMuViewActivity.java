@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -22,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jia.jsplayer.danmu.DanmuModel;
 import com.jia.jsplayer.danmu.DanmuView;
 
 import java.util.Random;
@@ -64,13 +66,12 @@ public class DanMuViewActivity extends Activity implements View.OnClickListener 
 
     private Random random = new Random();
 
-    private MyDanmuModel danmuEntity = new MyDanmuModel();
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 200) {
+                MyDanmuModel danmuEntity = new MyDanmuModel();
                 danmuEntity.setContent(DANMU[random.nextInt(8)]);
                 danmuEntity.setType(random.nextInt(4));
                 danmuEntity.setGoodNum(random.nextInt(100) + 1);
