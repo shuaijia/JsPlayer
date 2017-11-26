@@ -121,7 +121,7 @@ public void onConfigurationChanged(Configuration newConfig) {
 ```
 
 ## 弹幕举例：
-### 1、实体类
+### 1、实体类的编写
 
 创建实体类，但注意：**必须继承DanmuModel**
 
