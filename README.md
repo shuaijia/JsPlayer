@@ -1,6 +1,7 @@
 # JsPlayer
 
 ### 先上效果
+
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/aa.png)
 
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/bb.png)
@@ -14,6 +15,7 @@
 ![image](https://raw.githubusercontent.com/shuaijia/JsPlayer/master/img/ff.png)
 
 ### 历史版本
+
 version | update 
 ----|------
 v1.0 | 基础功能
