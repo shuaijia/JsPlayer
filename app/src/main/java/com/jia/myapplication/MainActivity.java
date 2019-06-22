@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("master");
         System.out.println("marge");
+
+        System.out.println("master2");
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
